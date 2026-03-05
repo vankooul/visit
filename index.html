@@ -2,11 +2,322 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Моя Визитница</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Визитка · vankooul</title>
+    <!-- Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(145deg, #f0f4ff 0%, #e6ecfe 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            line-height: 1.5;
+            color: #1b2b4e;
+        }
+
+        .card {
+            max-width: 460px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 48px;
+            box-shadow: 0 25px 45px -12px rgba(0, 10, 30, 0.25), 0 2px 10px 0 rgba(255, 255, 255, 0.6) inset;
+            padding: 2.5rem 2rem 2.2rem;
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.01);
+        }
+
+        .top-header {
+            text-align: center;
+            margin-bottom: 1.8rem;
+        }
+
+        .nickname {
+            font-size: 2.8rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            background: linear-gradient(130deg, #1f2f57, #344e8c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 5px rgba(18, 52, 106, 0.15);
+            line-height: 1.2;
+            word-break: break-word;
+        }
+
+        .nickname::before {
+            content: "@";
+            font-weight: 400;
+            background: linear-gradient(130deg, #4a5f8a, #2e3f68);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-right: 0.15rem;
+            font-size: 2.4rem;
+        }
+
+        .role {
+            text-align: center;
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: #2f4372;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            display: inline-block;
+            margin: 0 auto 1.8rem;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.7);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+        }
+
+        .avatar-placeholder {
+            width: 110px;
+            height: 110px;
+            background: linear-gradient(145deg, #b7cbff, #7f9fd9);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid white;
+            box-shadow: 0 12px 18px -8px rgba(32, 48, 88, 0.25);
+        }
+
+        .avatar-placeholder span {
+            font-size: 3.2rem;
+            font-weight: 500;
+            color: white;
+            text-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            letter-spacing: 1px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: rgba(255,255,255,0.5);
+            border-radius: 36px;
+            padding: 0.7rem 1.4rem;
+            margin-bottom: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.8);
+            backdrop-filter: blur(4px);
+            transition: background 0.15s;
+        }
+
+        .info-item i {
+            font-size: 1.2rem;
+            color: #2a4070;
+            width: 24px;
+            text-align: center;
+        }
+
+        .info-item .label {
+            font-weight: 500;
+            color: #1d2f53;
+            min-width: 70px;
+            font-size: 0.95rem;
+        }
+
+        .info-item .value {
+            font-weight: 500;
+            color: #0b1b38;
+            word-break: break-word;
+            flex: 1;
+        }
+
+        .info-item a {
+            color: #1d2f53;
+            text-decoration: none;
+            border-bottom: 1.5px dotted #6d8acb;
+        }
+
+        .info-item a:hover {
+            color: #001b44;
+            border-bottom: 1.5px solid #001b44;
+        }
+
+        /* контактные иконки — теперь ВК и Дискорд */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin: 2rem 0 1rem;
+        }
+
+        .social-link {
+            background: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1e315a;
+            font-size: 2.1rem;
+            box-shadow: 0 8px 16px -6px rgba(0, 34, 68, 0.2);
+            border: 1px solid rgba(255,255,255,0.9);
+            transition: 0.18s;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: #e2eaff;
+            color: #01112e;
+            transform: translateY(-5px);
+            box-shadow: 0 16px 20px -8px #15233e60;
+        }
+
+        .action-row {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .download-btn {
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid white;
+            padding: 0.85rem 2rem;
+            border-radius: 42px;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #142848;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 6px 14px rgba(34, 34, 80, 0.1);
+            cursor: pointer;
+            transition: 0.15s;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        .download-btn i {
+            font-size: 1.2rem;
+        }
+
+        .download-btn:hover {
+            background: white;
+            box-shadow: 0 12px 22px -6px #202f4e60;
+            color: #020e1f;
+        }
+
+        .footer-note {
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: #4f6085;
+            opacity: 0.7;
+            text-align: center;
+        }
+
+        @media (max-width: 380px) {
+            .card {
+                padding: 1.8rem 1.2rem;
+            }
+            .nickname {
+                font-size: 2.2rem;
+            }
+            .nickname::before {
+                font-size: 2rem;
+            }
+            .social-links {
+                gap: 1.5rem;
+            }
+            .social-link {
+                width: 52px;
+                height: 52px;
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Добро пожаловать на мой сайт!</h1>
-    <p>Это моя визитница.</p>
-    <p>Контакты: example@mail.com</p>
+
+    <div class="card">
+        <!-- никнейм сверху по центру -->
+        <div class="top-header">
+            <div class="nickname">vankooul</div>
+        </div>
+
+        <!-- аватар -->
+        <div class="avatar-placeholder">
+            <span>V</span>
+        </div>
+
+        <!-- роль -->
+        <div style="text-align: center;">
+            <span class="role"><i class="fas fa-bolt" style="margin-right: 6px;"></i> creative mind · code & design</span>
+        </div>
+
+        <!-- информация -->
+        <div style="margin: 1.6rem 0 0.5rem;">
+            <div class="info-item">
+                <i class="fas fa-map-pin"></i>
+                <span class="label">локация</span>
+                <span class="value">Мариуполь / online</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-envelope"></i>
+                <span class="label">почта</span>
+                <span class="value"><a href="mailto:vankooul@bk.ru">vankooul@bk.ru</a></span>
+            </div>
+            <div class="info-item">
+                <i class="fab fa-telegram-plane"></i>
+                <span class="label">telegram</span>
+                <span class="value"><a href="#">@vankoouls</a></span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-code"></i>
+                <span class="label">стек</span>
+                <span class="value">HTML, CSS, JS, Figma</span>
+            </div>
+        </div>
+
+        <!-- ТОЛЬКО ВК и ДИСКОРД (вместо трёх кнопок) -->
+        <div class="social-links">
+            <a href="https://vk.com/gkofxf" class="social-link" aria-label="ВКонтакте"><i class="fab fa-vk"></i></a>
+            <a href="#" class="social-link" aria-label="Discord"><i class="fab fa-discord"></i></a>
+        </div>
+
+        <!-- кнопка сохранения контакта (демо) -->
+        <div class="action-row">
+            <a href="#" class="download-btn" onclick="alert(`✋ Привет! Это демо-визитка vankooul. \nФункция ‘Сохранить контакт’ скоро будет активна.`); return false;">
+                <i class="fas fa-download"></i> 
+                <span>сохранить контакт</span>
+            </a>
+        </div>
+
+        <!-- девиз -->
+        <div class="footer-note">
+            ✦ открыт для идей и сотрудничества ✦
+        </div>
+    </div>
+
+    <!-- подпись -->
+    <div style="margin-top: 1.2rem; font-size: 0.85rem; color: #354c7b;">
+        <i class="fas fa-crown" style="opacity: 0.5;"></i> vankooul · цифровая визитка
+    </div>
+
 </body>
 </html>
